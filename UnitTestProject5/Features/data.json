@@ -1,0 +1,15 @@
+﻿{
+  "Names": [ "John", "Dave", "Admin", "User" ],
+  "Address": "25 Craignair Avenue  Brighton BN1 8UG",
+  "PostCode": "BN1 8UG",
+  "PreviousJobs": [
+    {
+      "CompanyName": "ericsson",
+      "Year": "1992"
+    },
+    {
+      "CompanyName": "Qlabs",
+      "Year": "2002"
+    }
+  ]
+}
