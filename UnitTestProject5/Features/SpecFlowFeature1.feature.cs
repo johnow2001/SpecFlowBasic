@@ -335,6 +335,57 @@ this.ScenarioInitialize(scenarioInfo);
             }
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("A scenario context test")]
+        [NUnit.Framework.CategoryAttribute("mytag1")]
+        [NUnit.Framework.CategoryAttribute("mytag2")]
+        public virtual void AScenarioContextTest()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "mytag1",
+                    "mytag2"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("A scenario context test", null, new string[] {
+                        "mytag1",
+                        "mytag2"});
+#line 54
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Field",
+                            "Value"});
+                table2.AddRow(new string[] {
+                            "One",
+                            "Test data part 1"});
+                table2.AddRow(new string[] {
+                            "Two",
+                            "Test data part 2"});
+#line 55
+ testRunner.Given("I have the following data", ((string)(null)), table2, "Given ");
+#line hidden
+#line 59
+ testRunner.Then("I can see the above data in the scenario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

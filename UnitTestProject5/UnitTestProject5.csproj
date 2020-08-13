@@ -180,6 +180,7 @@
     <Compile Include="PageObjects\CheckCollectionsPageObjects.cs" />
     <Compile Include="PageObjects\HomePageObjects.cs" />
     <Compile Include="StepDefinitions\Hooks.cs" />
+    <Compile Include="Support\MyFeatureContextInjection.cs" />
     <Compile Include="StepDefinitions\SpecFlowFeature3Steps.cs" />
     <Compile Include="Support\Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="StepDefinitions\SpecFlowFeature2Steps.cs" />
     <Compile Include="Support\FindElement.cs" />
     <Compile Include="Support\JSONAddress.cs" />
+    <Compile Include="Support\MyScenarioContextInjection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -49,3 +49,11 @@ Scenario: Test data from JSON file
 	Given I enter address and postcode from file
 	When I pass the adrress and postcode to this step
 	And I click next collections
+
+	@mytag1 @mytag2
+Scenario: A scenario context test
+	Given I have the following data
+	| Field | Value            |
+	| One   | Test data part 1 |
+	| Two   | Test data part 2 |
+	Then I can see the above data in the scenario

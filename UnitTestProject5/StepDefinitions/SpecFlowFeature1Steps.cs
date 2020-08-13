@@ -10,6 +10,8 @@ using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using Hook;
+using MyScenarioContextInjection;
+using TechTalk.SpecFlow.Assist;
 
 namespace MyTesting.StepBindings1
 {
@@ -21,10 +23,14 @@ namespace MyTesting.StepBindings1
         private IWebElement searchBox;
         public Context context;
 
-        public JO1Steps(Context myContext)
+        public ScenarioContext _scenarioContext;
+
+        public JO1Steps(Context context, ScenarioContext sc)
         {
             //this.context = myContext;
-            this.driver = myContext.getDriver();
+            //this.driver = myContext.getDriver();
+            this.driver = context.driver;
+            this._scenarioContext = sc;
         }
 
 
@@ -134,9 +140,24 @@ namespace MyTesting.StepBindings1
         [Then(@"I should be on page ""(.*)""")]
         public void ThenIShouldBeOnPage(string page)
         {
-
             Assert.IsTrue(driver.FindElementById("searchTitle").Text.Contains(page));
         }
 
+        [Given(@"I have the following data")]
+        public void GivenIHaveTheFollowingData(Table table)
+        {
+          
+            Assert.AreEqual("One", table.Rows[0]["Field"]);
+            Assert.AreEqual("Test data part 1", table.Rows[0]["Value"]);
+
+            Assert.AreEqual("Two", table.Rows[1]["Field"]);
+            Assert.AreEqual("Test data part 2", table.Rows[1]["Value"]);
+        }
+
+        [Then(@"I can see the above data in the scenario")]
+        public void ThenICanSeeTheAboveDataInTheScenario()
+        {
+            var si = _scenarioContext.ScenarioInfo;
+        }
     }
 }

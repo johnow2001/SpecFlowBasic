@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using System.IO;
 using NUnit.Framework;
 using System.Linq;
-using Hook;
 
 namespace MyTesting.StepDefinitions3
 {
@@ -26,10 +25,11 @@ namespace MyTesting.StepDefinitions3
         private AddressPageObject AddressPage;
         private ReadOnlyCollection<String> WindowHandles;
         public JSONAddress address;
+        public Context context;
 
         public JO3Steps(JSONAddress myAddress, Context context)
         {
-            this.driver = context.getDriver();
+            this.driver = context.driver;
             this.address = myAddress;
         }
 

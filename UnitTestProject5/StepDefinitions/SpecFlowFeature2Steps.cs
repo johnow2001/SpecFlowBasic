@@ -13,12 +13,13 @@ namespace MyTesting.StepBindings2
     [Binding]
     public class JO2Steps
     { 
-    private ChromeDriver driver;
-    public String MyAddress;
+        private ChromeDriver driver;
+        public String MyAddress;
+        public Context context;
 
         public JO2Steps(JSONAddress address, Context myContext)
         {
-            this.driver = myContext.getDriver();
+            this.driver = myContext.driver;
             this.MyAddress = address.PostCode;
         }
    

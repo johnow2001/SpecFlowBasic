@@ -21,11 +21,10 @@ namespace Hook
         private static ExtentTest feature;
         private static ExtentTest scenario;
         public ChromeDriver driver;
-        public Context myContext;
 
         public Hooks(Context context)
         {
-            this.myContext = context;
+            this.driver = context.driver;
         }
        
 
@@ -38,19 +37,19 @@ namespace Hook
         }
 
         [BeforeFeature]
-        public static void BeforeFeature()
+        public static void BeforeFeature(FeatureContext featureContext)
         {
-            feature = extent.CreateTest<Feature>(FeatureContext.Current.FeatureInfo.Title); 
+            feature = extent.CreateTest<Feature>(featureContext.FeatureInfo.Title); 
         }
 
         [BeforeScenario]
-        public void Before()
+        public void Before(ScenarioContext sceanrioContext)
         {
-            scenario = feature.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
+            scenario = feature.CreateNode<Scenario>(sceanrioContext.ScenarioInfo.Title);
         }
 
         [AfterStep]
-        public void AfterStep()
+        public void AfterStep(ScenarioContext sceanrioContext)
         {
             var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
 
@@ -58,7 +57,7 @@ namespace Hook
             //MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
             //object TestResult = getter.Invoke(ScenarioContext.Current, null);
 
-            if (ScenarioContext.Current.TestError == null)
+            if (sceanrioContext.TestError == null)
             {
                 if (stepType == "Given")
                     scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text);
@@ -69,16 +68,16 @@ namespace Hook
                 else if (stepType == "And")
                     scenario.CreateNode<And>(ScenarioStepContext.Current.StepInfo.Text);
             }
-            else if (ScenarioContext.Current.TestError != null)
+            else if (sceanrioContext.TestError != null)
             {
                 if (stepType == "Given")
-                    scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                    scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text).Fail(sceanrioContext.TestError.Message);
                 else if (stepType == "When")
-                    scenario.CreateNode<When>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                    scenario.CreateNode<When>(ScenarioStepContext.Current.StepInfo.Text).Fail(sceanrioContext.TestError.Message);
                 else if (stepType == "Then")
-                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Fail(sceanrioContext.TestError.Message);
                 else if (stepType == "And")
-                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Fail(sceanrioContext.TestError.Message);
             }
 
             //Pending Status
@@ -99,7 +98,8 @@ namespace Hook
         [AfterScenario]
         public void After()
         {
-            myContext.getDriver().Quit();
+            //myContext.getDriver().Quit();
+            driver.Quit();
         }
 
         [AfterFeature]
